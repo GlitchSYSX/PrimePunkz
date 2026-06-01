@@ -1,1 +1,1038 @@
+<!DOCTYPE html>
 
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIME PUNKZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --red: #cc0000;
+    --red-hot: #ff2200;
+    --yellow: #f5c500;
+    --white: #e8e0d0;
+    --gray: #2a2a2a;
+    --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background-color: var(–black);
+color: var(–white);
+font-family: ‘Special Elite’, cursive;
+overflow-x: hidden;
+cursor: crosshair;
+}
+
+/* NOISE OVERLAY */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: var(–noise);
+pointer-events: none;
+z-index: 9999;
+opacity: 0.04;
+}
+
+/* SCANLINES */
+body::after {
+content: ‘’;
+position: fixed;
+inset: 0;
+background: repeating-linear-gradient(
+0deg,
+transparent,
+transparent 2px,
+rgba(0,0,0,0.08) 2px,
+rgba(0,0,0,0.08) 4px
+);
+pointer-events: none;
+z-index: 9998;
+}
+
+/* ===== NAVBAR ===== */
+nav {
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 1000;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 14px 40px;
+background: rgba(10,10,10,0.92);
+border-bottom: 2px solid var(–red);
+backdrop-filter: blur(4px);
+}
+
+.nav-logo {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 2rem;
+letter-spacing: 4px;
+color: var(–red-hot);
+text-shadow: 0 0 20px rgba(255,34,0,0.5), 2px 2px 0 #000;
+animation: flicker 4s infinite;
+}
+
+.nav-links {
+display: flex;
+gap: 32px;
+list-style: none;
+}
+
+.nav-links a {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.85rem;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–white);
+text-decoration: none;
+position: relative;
+transition: color 0.2s;
+}
+
+.nav-links a::after {
+content: ‘’;
+position: absolute;
+bottom: -4px;
+left: 0;
+width: 0;
+height: 2px;
+background: var(–red-hot);
+transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(–red-hot); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ===== HERO ===== */
+.hero {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+overflow: hidden;
+background: var(–black);
+padding-top: 80px;
+}
+
+.hero-bg {
+position: absolute;
+inset: 0;
+background:
+radial-gradient(ellipse 60% 50% at 30% 50%, rgba(180,0,0,0.12) 0%, transparent 70%),
+radial-gradient(ellipse 40% 60% at 80% 30%, rgba(245,197,0,0.05) 0%, transparent 60%),
+linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+}
+
+/* DIAGONAL STRIPE */
+.hero-stripe {
+position: absolute;
+top: -100px;
+right: -60px;
+width: 420px;
+height: 120%;
+background: repeating-linear-gradient(
+-55deg,
+transparent,
+transparent 18px,
+rgba(204,0,0,0.07) 18px,
+rgba(204,0,0,0.07) 20px
+);
+transform: skewX(-5deg);
+}
+
+.hero-content {
+text-align: center;
+position: relative;
+z-index: 2;
+padding: 0 20px;
+}
+
+.hero-eyebrow {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 900;
+font-size: 0.8rem;
+letter-spacing: 8px;
+color: var(–red);
+text-transform: uppercase;
+margin-bottom: 20px;
+animation: slideUp 0.8s ease both;
+}
+
+.hero-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(5rem, 16vw, 13rem);
+line-height: 0.88;
+letter-spacing: -2px;
+color: var(–white);
+text-shadow: 4px 4px 0 var(–red), 8px 8px 0 rgba(204,0,0,0.3);
+animation: slideUp 0.8s 0.1s ease both;
+position: relative;
+}
+
+.hero-title span {
+display: block;
+color: var(–red-hot);
+-webkit-text-stroke: 2px var(–red-hot);
+color: transparent;
+text-shadow: none;
+animation: slideUp 0.8s 0.2s ease both;
+}
+
+.hero-sub {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 1.2rem;
+letter-spacing: 6px;
+color: var(–yellow);
+text-transform: uppercase;
+margin-top: 20px;
+animation: slideUp 0.8s 0.3s ease both;
+}
+
+.hero-cta {
+margin-top: 48px;
+display: flex;
+gap: 20px;
+justify-content: center;
+flex-wrap: wrap;
+animation: slideUp 0.8s 0.4s ease both;
+}
+
+.btn-primary {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1.1rem;
+letter-spacing: 4px;
+padding: 14px 44px;
+background: var(–red);
+color: var(–white);
+border: none;
+cursor: pointer;
+position: relative;
+clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+transition: all 0.2s;
+text-decoration: none;
+display: inline-block;
+}
+
+.btn-primary::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: var(–red-hot);
+clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+opacity: 0;
+transition: opacity 0.2s;
+}
+
+.btn-primary:hover::before { opacity: 1; }
+.btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(–yellow); }
+
+.btn-outline {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1.1rem;
+letter-spacing: 4px;
+padding: 12px 44px;
+background: transparent;
+color: var(–white);
+border: 2px solid var(–white);
+cursor: pointer;
+clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+transition: all 0.2s;
+text-decoration: none;
+display: inline-block;
+}
+
+.btn-outline:hover {
+border-color: var(–yellow);
+color: var(–yellow);
+transform: translate(-2px, -2px);
+box-shadow: 4px 4px 0 var(–red);
+}
+
+/* SCROLL INDICATOR */
+.scroll-indicator {
+position: absolute;
+bottom: 30px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 6px;
+animation: bounce 2s infinite;
+}
+
+.scroll-indicator span {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.65rem;
+letter-spacing: 4px;
+color: rgba(232,224,208,0.4);
+}
+
+.scroll-arrow {
+width: 16px;
+height: 16px;
+border-right: 2px solid var(–red);
+border-bottom: 2px solid var(–red);
+transform: rotate(45deg);
+}
+
+/* ===== MARQUEE ===== */
+.marquee-wrap {
+background: var(–red);
+padding: 10px 0;
+overflow: hidden;
+border-top: 2px solid var(–red-hot);
+border-bottom: 2px solid #800000;
+}
+
+.marquee-track {
+display: flex;
+gap: 0;
+animation: marquee 18s linear infinite;
+white-space: nowrap;
+}
+
+.marquee-item {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1.1rem;
+letter-spacing: 6px;
+color: var(–black);
+padding: 0 40px;
+flex-shrink: 0;
+}
+
+.marquee-item::before {
+content: ‘✦’;
+margin-right: 40px;
+color: rgba(0,0,0,0.5);
+}
+
+/* ===== ABOUT ===== */
+.section {
+padding: 100px 60px;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.section-label {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 900;
+font-size: 0.7rem;
+letter-spacing: 8px;
+color: var(–red);
+text-transform: uppercase;
+margin-bottom: 16px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.section-label::before {
+content: ‘’;
+display: inline-block;
+width: 30px;
+height: 2px;
+background: var(–red);
+}
+
+.section-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(3rem, 7vw, 6rem);
+line-height: 1;
+color: var(–white);
+text-shadow: 3px 3px 0 rgba(204,0,0,0.4);
+margin-bottom: 32px;
+}
+
+.about-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+align-items: center;
+}
+
+.about-text p {
+font-size: 1.05rem;
+line-height: 1.8;
+color: rgba(232,224,208,0.75);
+margin-bottom: 20px;
+}
+
+.about-visual {
+position: relative;
+}
+
+.about-box {
+width: 100%;
+aspect-ratio: 4/3;
+background: var(–gray);
+border: 2px solid rgba(204,0,0,0.4);
+position: relative;
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.about-box::before {
+content: ‘PRIME\APUNKZ’;
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 5rem;
+color: rgba(204,0,0,0.12);
+letter-spacing: 10px;
+text-align: center;
+white-space: pre-line;
+line-height: 1.1;
+}
+
+.about-box::after {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: repeating-linear-gradient(
+45deg,
+transparent,
+transparent 10px,
+rgba(255,34,0,0.03) 10px,
+rgba(255,34,0,0.03) 11px
+);
+}
+
+.about-corner {
+position: absolute;
+width: 30px;
+height: 30px;
+}
+
+.about-corner.tl { top: -2px; left: -2px; border-top: 3px solid var(–yellow); border-left: 3px solid var(–yellow); }
+.about-corner.br { bottom: -2px; right: -2px; border-bottom: 3px solid var(–yellow); border-right: 3px solid var(–yellow); }
+
+/* ===== MEMBERS ===== */
+.members-section {
+background: var(–dark);
+border-top: 1px solid #1f1f1f;
+border-bottom: 1px solid #1f1f1f;
+}
+
+.members-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 2px;
+}
+
+.member-card {
+background: var(–gray);
+padding: 36px 24px;
+position: relative;
+overflow: hidden;
+cursor: pointer;
+transition: all 0.3s;
+border: 1px solid transparent;
+}
+
+.member-card::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, rgba(204,0,0,0.08) 0%, transparent 60%);
+opacity: 0;
+transition: opacity 0.3s;
+}
+
+.member-card:hover {
+border-color: var(–red);
+transform: translateY(-4px);
+}
+
+.member-card:hover::before { opacity: 1; }
+
+.member-number {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 4rem;
+color: rgba(204,0,0,0.15);
+line-height: 1;
+margin-bottom: 16px;
+transition: color 0.3s;
+}
+
+.member-card:hover .member-number { color: rgba(255,34,0,0.3); }
+
+.member-avatar {
+width: 64px;
+height: 64px;
+background: var(–black);
+border: 2px solid rgba(204,0,0,0.3);
+border-radius: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 16px;
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1.6rem;
+color: var(–red);
+transition: border-color 0.3s;
+clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+}
+
+.member-card:hover .member-avatar { border-color: var(–red-hot); }
+
+.member-name {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1.6rem;
+letter-spacing: 2px;
+color: var(–white);
+margin-bottom: 4px;
+}
+
+.member-role {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.75rem;
+letter-spacing: 4px;
+color: var(–red);
+text-transform: uppercase;
+}
+
+/* ===== RELEASES ===== */
+.releases-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 24px;
+}
+
+.release-card {
+background: var(–gray);
+border: 1px solid #333;
+position: relative;
+overflow: hidden;
+cursor: pointer;
+transition: all 0.3s;
+group: ‘’;
+}
+
+.release-card:hover {
+border-color: var(–red);
+transform: translate(-3px, -3px);
+box-shadow: 3px 3px 0 var(–red);
+}
+
+.release-art {
+aspect-ratio: 1;
+background: var(–black);
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+overflow: hidden;
+}
+
+.release-art-inner {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 3rem;
+letter-spacing: 4px;
+color: rgba(232,224,208,0.08);
+text-align: center;
+line-height: 1.1;
+}
+
+.release-1 .release-art { background: linear-gradient(135deg, #1a0000, #0a0a0a); }
+.release-2 .release-art { background: linear-gradient(135deg, #0a0a0a, #1a1a00); }
+.release-3 .release-art { background: linear-gradient(135deg, #000a1a, #0a0a0a); }
+
+.release-1 .release-art-inner { color: rgba(204,0,0,0.2); }
+.release-2 .release-art-inner { color: rgba(245,197,0,0.15); }
+.release-3 .release-art-inner { color: rgba(255,255,255,0.08); }
+
+.release-info {
+padding: 20px;
+border-top: 1px solid #333;
+}
+
+.release-tag {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.65rem;
+letter-spacing: 4px;
+color: var(–red);
+text-transform: uppercase;
+margin-bottom: 6px;
+}
+
+.release-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1.5rem;
+letter-spacing: 2px;
+color: var(–white);
+margin-bottom: 4px;
+}
+
+.release-desc {
+font-size: 0.85rem;
+color: rgba(232,224,208,0.5);
+line-height: 1.5;
+}
+
+/* ===== STATS ===== */
+.stats-bar {
+background: var(–red);
+padding: 40px 60px;
+}
+
+.stats-inner {
+max-width: 1200px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+text-align: center;
+}
+
+.stat-num {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 3.5rem;
+color: var(–black);
+line-height: 1;
+text-shadow: 2px 2px 0 rgba(255,255,255,0.15);
+}
+
+.stat-label {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.7rem;
+letter-spacing: 4px;
+color: rgba(0,0,0,0.6);
+text-transform: uppercase;
+margin-top: 4px;
+}
+
+/* ===== CONTACT ===== */
+.contact-wrap {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+align-items: start;
+}
+
+.contact-info p {
+font-size: 1rem;
+line-height: 1.8;
+color: rgba(232,224,208,0.65);
+margin-bottom: 32px;
+}
+
+.social-links {
+display: flex;
+gap: 16px;
+flex-wrap: wrap;
+}
+
+.social-link {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 0.9rem;
+letter-spacing: 3px;
+color: var(–white);
+text-decoration: none;
+padding: 10px 22px;
+border: 1px solid #333;
+transition: all 0.2s;
+clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+.social-link:hover {
+border-color: var(–red);
+color: var(–red-hot);
+background: rgba(204,0,0,0.08);
+}
+
+.contact-form {
+display: flex;
+flex-direction: column;
+gap: 16px;
+}
+
+.form-group input,
+.form-group textarea {
+width: 100%;
+background: var(–gray);
+border: 1px solid #333;
+border-top: 2px solid #444;
+color: var(–white);
+padding: 14px 18px;
+font-family: ‘Special Elite’, cursive;
+font-size: 0.9rem;
+outline: none;
+transition: border-color 0.2s;
+resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+border-color: var(–red);
+background: rgba(204,0,0,0.04);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+color: rgba(232,224,208,0.25);
+letter-spacing: 2px;
+}
+
+.form-group textarea { min-height: 120px; }
+
+/* ===== FOOTER ===== */
+footer {
+background: var(–black);
+border-top: 2px solid var(–red);
+padding: 40px 60px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.footer-logo {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 2.2rem;
+letter-spacing: 4px;
+color: var(–red);
+text-shadow: 2px 2px 0 rgba(204,0,0,0.3);
+}
+
+.footer-copy {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.7rem;
+letter-spacing: 3px;
+color: rgba(232,224,208,0.3);
+text-transform: uppercase;
+}
+
+.footer-tagline {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 1rem;
+letter-spacing: 4px;
+color: rgba(204,0,0,0.5);
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–red), transparent);
+margin: 0;
+opacity: 0.4;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes flicker {
+0%, 95%, 100% { opacity: 1; }
+96% { opacity: 0.7; }
+97% { opacity: 1; }
+98% { opacity: 0.5; }
+99% { opacity: 1; }
+}
+
+@keyframes marquee {
+from { transform: translateX(0); }
+to { transform: translateX(-50%); }
+}
+
+@keyframes slideUp {
+from { opacity: 0; transform: translateY(30px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+0%, 100% { transform: translateX(-50%) translateY(0); }
+50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+nav { padding: 14px 24px; }
+.nav-links { display: none; }
+.section { padding: 70px 24px; }
+.about-grid, .contact-wrap { grid-template-columns: 1fr; }
+.members-grid { grid-template-columns: repeat(2, 1fr); }
+.releases-grid { grid-template-columns: 1fr 1fr; }
+.stats-inner { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+.stats-bar { padding: 40px 24px; }
+footer { flex-direction: column; gap: 12px; text-align: center; padding: 30px 24px; }
+}
+
+@media (max-width: 600px) {
+.releases-grid { grid-template-columns: 1fr; }
+.members-grid { grid-template-columns: repeat(2, 1fr); }
+.stats-inner { grid-template-columns: repeat(2, 1fr); }
+.hero-cta { flex-direction: column; align-items: center; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <div class="nav-logo">PRIME PUNKZ</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#members">Members</a></li>
+    <li><a href="#releases">Releases</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-primary" style="font-size:0.8rem;padding:10px 28px;">JOIN THE GANG</a>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. 2024 — Underground Collective</p>
+    <h1 class="hero-title">
+      PRIME
+      <span>PUNKZ</span>
+    </h1>
+    <p class="hero-sub">We Don't Follow Rules — We Break Them</p>
+    <div class="hero-cta">
+      <a href="#releases" class="btn-primary">Lihat Releases</a>
+      <a href="#about" class="btn-outline">Tentang Kami</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">PRIME PUNKZ</span>
+    <span class="marquee-item">NO RULES</span>
+    <span class="marquee-item">UNDERGROUND</span>
+    <span class="marquee-item">STAY RAW</span>
+    <span class="marquee-item">REBEL CREW</span>
+    <span class="marquee-item">PRIME PUNKZ</span>
+    <span class="marquee-item">NO RULES</span>
+    <span class="marquee-item">UNDERGROUND</span>
+    <span class="marquee-item">STAY RAW</span>
+    <span class="marquee-item">REBEL CREW</span>
+    <span class="marquee-item">PRIME PUNKZ</span>
+    <span class="marquee-item">NO RULES</span>
+    <span class="marquee-item">UNDERGROUND</span>
+    <span class="marquee-item">STAY RAW</span>
+    <span class="marquee-item">REBEL CREW</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+
+<section id="about" style="background: var(--dark);">
+  <div class="section">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">Siapa Kami</p>
+        <h2 class="section-title">BUKAN\ABIASA</h2>
+        <p>Prime Punkz adalah kolektif underground yang lahir dari semangat perlawanan dan kreativitas tanpa batas. Kami bukan sekadar grup — kami adalah gerakan.</p>
+        <p>Dari jalanan sampai ke panggung, kami membawa energi raw yang nggak bisa lo temuin di tempat lain. Musik, seni, gaya hidup — semua dilakukan dengan cara kami sendiri.</p>
+        <div style="margin-top: 32px;">
+          <a href="#members" class="btn-primary">Meet The Crew</a>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-box">
+          <div class="about-corner tl"></div>
+          <div class="about-corner br"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div>
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Members</div>
+    </div>
+    <div>
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Shows</div>
+    </div>
+    <div>
+      <div class="stat-num">8</div>
+      <div class="stat-label">Releases</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">Tahun Aktif</div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBERS -->
+
+<section id="members" class="members-section">
+  <div class="section">
+    <p class="section-label">The Crew</p>
+    <h2 class="section-title">ANGGOTA</h2>
+    <div class="members-grid" style="margin-top: 40px;">
+      <div class="member-card">
+        <div class="member-number">01</div>
+        <div class="member-avatar">R</div>
+        <div class="member-name">RAKA</div>
+        <div class="member-role">Frontman / Vocals</div>
+      </div>
+      <div class="member-card">
+        <div class="member-number">02</div>
+        <div class="member-avatar">D</div>
+        <div class="member-name">DIMAS</div>
+        <div class="member-role">Guitar / Riffs</div>
+      </div>
+      <div class="member-card">
+        <div class="member-number">03</div>
+        <div class="member-avatar">F</div>
+        <div class="member-name">FAJAR</div>
+        <div class="member-role">Bass / Groove</div>
+      </div>
+      <div class="member-card">
+        <div class="member-number">04</div>
+        <div class="member-avatar">Y</div>
+        <div class="member-name">YOGA</div>
+        <div class="member-role">Drums / Beatdown</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RELEASES -->
+
+<section id="releases">
+  <div class="section">
+    <p class="section-label">Karya Kami</p>
+    <h2 class="section-title">RELEASES</h2>
+    <div class="releases-grid" style="margin-top: 40px;">
+      <div class="release-card release-1">
+        <div class="release-art">
+          <div class="release-art-inner">CHAOS\ATHEORY</div>
+        </div>
+        <div class="release-info">
+          <div class="release-tag">Album · 2024</div>
+          <div class="release-title">CHAOS THEORY</div>
+          <div class="release-desc">Album debut penuh amarah dan kebenaran mentah dari jalanan.</div>
+        </div>
+      </div>
+      <div class="release-card release-2">
+        <div class="release-art">
+          <div class="release-art-inner">BURN\ATHE\ASYSTEM</div>
+        </div>
+        <div class="release-info">
+          <div class="release-tag">Single · 2024</div>
+          <div class="release-title">BURN THE SYSTEM</div>
+          <div class="release-desc">Anthem perlawanan. Satu lagu, seribu makna.</div>
+        </div>
+      </div>
+      <div class="release-card release-3">
+        <div class="release-art">
+          <div class="release-art-inner">LIVE\AAT\ARUMBLE</div>
+        </div>
+        <div class="release-info">
+          <div class="release-tag">Live EP · 2023</div>
+          <div class="release-title">LIVE AT RUMBLE</div>
+          <div class="release-desc">Rekaman langsung dari konser underground paling berapi-api.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" style="background: var(--dark);">
+  <div class="section">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <p class="section-label">Hubungi Kami</p>
+        <h2 class="section-title">LET'S\ATALK</h2>
+        <p>Mau collab, booking show, atau sekadar ngobrolin dunia underground bareng? Reach out ke kita. Pintu selalu terbuka buat yang serius.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">INSTAGRAM</a>
+          <a href="#" class="social-link">SPOTIFY</a>
+          <a href="#" class="social-link">YOUTUBE</a>
+          <a href="#" class="social-link">TIKTOK</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-group">
+          <input type="text" placeholder="NAMA LO">
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="EMAIL">
+        </div>
+        <div class="form-group">
+          <textarea placeholder="PESAN LO..."></textarea>
+        </div>
+        <button class="btn-primary" style="align-self: flex-start; border: none; cursor: pointer;">KIRIM PESAN</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-logo">PRIME PUNKZ</div>
+  <div class="footer-tagline">STAY RAW. STAY REAL.</div>
+  <div class="footer-copy">© 2024 Prime Punkz. All Rights Reserved.</div>
+</footer>
+
+<script>
+  // Glitch effect on hero title hover
+  const title = document.querySelector('.hero-title');
+  if (title) {
+    title.addEventListener('mouseenter', () => {
+      title.style.transform = 'skewX(-2deg)';
+      title.style.transition = 'transform 0.1s';
+      setTimeout(() => {
+        title.style.transform = 'skewX(0deg)';
+        setTimeout(() => {
+          title.style.transform = 'skewX(1deg)';
+          setTimeout(() => title.style.transform = 'skewX(0deg)', 80);
+        }, 80);
+      }, 80);
+    });
+  }
+
+  // Intersection observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.member-card, .release-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
